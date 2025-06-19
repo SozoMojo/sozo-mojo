@@ -1,29 +1,20 @@
 const handleSubmit = async (e) => {
   e.preventDefault();
-
-  const formData = {
-    name,
-    email,
-    message,
-  };
-
   try {
-    const res = await fetch("/api/airtable", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+    const res = await fetch('/api/airtable', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message }),
     });
 
-    if (!res.ok) throw new Error("Submission failed");
-
-    alert("Submission successful!");
-    setName("");
-    setEmail("");
-    setMessage("");
+    if (res.ok) {
+      alert('Submission successful!');
+    } else {
+      alert('Submission failed.');
+    }
   } catch (err) {
-    alert("Something went wrong.");
-    console.error(err);
+    console.error('Client error:', err);
+    alert('Error submitting form.');
   }
 };
+
